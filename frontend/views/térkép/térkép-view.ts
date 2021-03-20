@@ -120,7 +120,7 @@ export class TérképView extends View {
 				<div class="form">
 					<vaadin-form-layout id="formlayout">
 						<vaadin-form-item>
-							<vaadin-text-field @change=${this.change} id="descriptionfield" label="Description"
+							<vaadin-text-field @change=${this.change} id="descriptionfield" label="Description1"
 								value=${this.description} class="myclass"></vaadin-text-field>
 							<vaadin-checkbox id="sendnotificationfield" @change=${this.change}>Send notification</vaadin-checkbox>
 						</vaadin-form-item>
