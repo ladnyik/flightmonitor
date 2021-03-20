@@ -16,8 +16,10 @@ if (!devicedId) {
 	localStorage.setItem("ladnyik.flightmonitor.deviceId",devicedId);
 	appStore.deviceId = devicedId; 
 }
+else
+	appStore.deviceId = devicedId;
 
-var app = firebase.initializeApp({
+firebase.initializeApp({
 	apiKey: "AIzaSyD_ClZV4paPW-DkYzeb4IrhsQwLXP38vDQ",
 	authDomain: "monitor-dcde3.firebaseapp.com",
 	databaseURL: "https://monitor-dcde3.firebaseio.com",
@@ -26,8 +28,6 @@ var app = firebase.initializeApp({
 	messagingSenderId: "599266210703",
 	appId: "1:599266210703:web:c836754716001d5f"
 });
-
-console.log(app);
 
 if ('serviceWorker' in navigator) {
 	console.log("van sw");

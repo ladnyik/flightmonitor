@@ -13,12 +13,15 @@ import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 
 @Entity(noClassnameStored = true)
-@Indexes(@Index(value = "email", fields = @Field("email")))
+@Indexes(@Index(value = "deviceId", fields = @Field("deviceId")))
 public class UserArea {
 
 	@Id
 	private ObjectId id;
+	private String deviceId;
+	@Nullable
 	private String email;
+
 	
 	@Nullable
 	private List<ObservedArea> areas = new ArrayList<ObservedArea>();
@@ -26,16 +29,32 @@ public class UserArea {
 		super();
 	}
 
-	public UserArea(String email) {
+	public UserArea(String deviceId) {
 		super();
+		this.deviceId = deviceId;
+	}
+
+	public UserArea(String deviceId, String email) {
+		super();
+		this.deviceId = deviceId;
 		this.email = email;
 	}
 
-	public UserArea(String email, List<ObservedArea> areas) {
+	public UserArea(String deviceId, String email, List<ObservedArea> areas) {
 		super();
+		this.deviceId = deviceId;
 		this.email = email;
 		this.areas = areas;
 	}
+	
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
 	public String getEmail() {
 		return email;
 	}

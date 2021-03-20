@@ -4,6 +4,7 @@ public class ObservedArea {
 	
 	private Area area;
 	private boolean sendEmailNotification;
+	private boolean sendPushNotification;
 	private String description;
 	private Integer minAltitude;
 	private Integer maxAltitude;
@@ -18,10 +19,11 @@ public class ObservedArea {
 		super();
 	}
 
-	public ObservedArea(boolean sendEmailNotification, Area area, String description, Integer minAltitude, Integer maxAltitude, Integer minSpeed,
+	public ObservedArea(boolean sendEmailNotification,  boolean sendPushNotification, Area area, String description, Integer minAltitude, Integer maxAltitude, Integer minSpeed,
 			Integer maxSpeed, Integer minTrack, Integer maxTrack, Integer minVertical, Integer maxVertical) {
 		super();
 		this.sendEmailNotification = sendEmailNotification;
+		this.sendPushNotification = sendPushNotification;
 		this.area = area;
 		this.description = description;
 		this.minAltitude = minAltitude;
@@ -40,6 +42,14 @@ public class ObservedArea {
 
 	public void setArea(Area area) {
 		this.area = area;
+	}
+
+	public boolean isSendPushNotification() {
+		return sendPushNotification;
+	}
+
+	public void setSendPushNotification(boolean sendPushNotification) {
+		this.sendPushNotification = sendPushNotification;
 	}
 
 	public boolean isSendEmailNotification() {

@@ -19,8 +19,12 @@ export default class UserAreaModel<T extends UserArea = UserArea> extends Object
     return this[_getPropertyModel]('areas', ArrayModel, [true, ObservedAreaModel, [false]]);
   }
 
+  get deviceId(): StringModel {
+    return this[_getPropertyModel]('deviceId', StringModel, [false]);
+  }
+
   get email(): StringModel {
-    return this[_getPropertyModel]('email', StringModel, [false]);
+    return this[_getPropertyModel]('email', StringModel, [true]);
   }
 
   get id(): ObjectIdModel {

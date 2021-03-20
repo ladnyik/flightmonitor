@@ -19,20 +19,20 @@ import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class UserAreaEndPoint {
 	
-	public UserArea getUserArea(String email) {
-		System.out.println("getuserarea:" + email);
+	public UserArea getUserArea(String deviceId, String email) {
+		System.out.println("getuserarea:" + deviceId);
 		Morphia morphia = new Morphia();
 		morphia.mapPackage("com.flightmonitor.application.endpoint.entity");
 		Datastore datastore = morphia.createDatastore(new MongoClient("localhost",AppStore.getMongoPort()), "flightmonitor");
 		datastore.ensureIndexes();
-		Query<UserArea> userAreaQuery = datastore.createQuery(UserArea.class).field("email").equal(email);
+		Query<UserArea> userAreaQuery = datastore.createQuery(UserArea.class).field("deviceId").equal(deviceId);
 		List<UserArea> userAreas = userAreaQuery.asList();
 		System.out.println("size " + userAreas.size());
 		if (userAreas.size() > 0) {
 			return userAreas.get(0);
 		}
 		else {				
-			UserArea userArea  = new UserArea(email);
+			UserArea userArea  = new UserArea(deviceId,email);
 			return userArea;
 		}		
 	}

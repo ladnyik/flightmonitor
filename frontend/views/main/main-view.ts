@@ -14,7 +14,10 @@ import styles from './main-view.css';
 import { Router } from '@vaadin/router';
 import firebase from 'firebase';
 import * as UserLogin from '../../generated/UserLoginEndPoint';
+import * as UserDeviceEndPoint from '../../generated/UserDeviceEndPoint';
 import { showNotification } from '@vaadin/flow-frontend/a-notification';
+import UserDevice from '../../generated/com/flightmonitor/application/endpoint/entity/UserDevice';
+
 
 @customElement('main-view')
 export class MainView extends Layout {
@@ -79,6 +82,8 @@ export class MainView extends Layout {
 	}		
 	else{
 	    var provider = new firebase.auth.GoogleAuthProvider();
+		provider.addScope('https://www.googleapis.com/auth/cloud-platform');
+		provider.addScope('https://www.googleapis.com/auth/firebase.messaging');
 	    firebase.auth().signInWithPopup(provider);
 	}
   }
@@ -119,7 +124,8 @@ export class MainView extends Layout {
 				const messaging = firebase.messaging();
 				messaging.getToken({ vapidKey: 'BGZfKgK6Wqm2IUd8W5U7etcIvW-JHrYfn8PVx4DEH47L3njPRsTK3fvA3OcOyAetBHZXAF7EN8443O-6x9Xl59U', serviceWorkerRegistration: appStore.serviceWorkerRegistration}).then((currentToken) => {
   					if (currentToken) {
-						appStore.messagingToken = currentToken; 
+						appStore.messagingToken = currentToken;
+						UserDeviceEndPoint.updateMessagingToken(appStore.deviceId,currentToken); 
 					  } else {
     						console.log('No registration token available. Request permission to generate one.');
   					}
@@ -127,7 +133,23 @@ export class MainView extends Layout {
   						console.log('An error occurred while retrieving token. ', err);
 				}); 			             
 				let event = new CustomEvent("signOn", {bubbles: true, detail:user.email});
-				this.dispatchEvent(event);  				
+				this.dispatchEvent(event);
+
+ 				console.log(appStore.deviceId);
+				console.log(appStore.messagingToken);
+				var userDevice: UserDevice = {
+                            appCodeName: navigator.appCodeName,
+                            appName: navigator.appName,
+                            appVersion: navigator.appVersion,
+                            platform: navigator.platform,
+  							deviceId: appStore.deviceId,
+							messageToken: appStore.messagingToken,
+  							email: appStore.email					
+				};
+				
+				UserDeviceEndPoint.userDeviceLogin(userDevice).then(()=>{
+					console.log('sikeres userdevice iras');
+				});
 			}
 			else{
 			    appStore.loggedIn = false;
@@ -145,7 +167,11 @@ export class MainView extends Layout {
     } else {
 		appStore.loggedIn = false;
 		UserLogin.userLogout(appStore.email);
+		UserDeviceEndPoint.userDeviceLogout(appStore.deviceId).then(()=>{
+					console.log('sikeres userdevice logoff');
+				});
 		appStore.email = "";
+		appStore.messagingToken = "";
 		this.userAvatar.img = "images/logo.png";
 		Router.go({
   			pathname: router.baseUrl,

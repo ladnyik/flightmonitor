@@ -18,4 +18,5 @@ export default interface ObservedArea {
   minTrack: number;
   minVertical: number;
   sendEmailNotification: boolean;
+  sendPushNotification: boolean;
 }

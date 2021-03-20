@@ -10,9 +10,10 @@ import client from './connect-client.default';
 import UserArea from './com/flightmonitor/application/endpoint/entity/UserArea';
 
 function _getUserArea(
+  deviceId: string,
   email: string
 ): Promise<UserArea> {
-  return client.call('UserAreaEndPoint', 'getUserArea', {email});
+  return client.call('UserAreaEndPoint', 'getUserArea', {deviceId, email});
 }
 export {_getUserArea as getUserArea};
 

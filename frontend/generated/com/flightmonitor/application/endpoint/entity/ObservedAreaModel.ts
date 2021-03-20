@@ -57,4 +57,8 @@ export default class ObservedAreaModel<T extends ObservedArea = ObservedArea> ex
   get sendEmailNotification(): BooleanModel {
     return this[_getPropertyModel]('sendEmailNotification', BooleanModel, [false]);
   }
+
+  get sendPushNotification(): BooleanModel {
+    return this[_getPropertyModel]('sendPushNotification', BooleanModel, [false]);
+  }
 }

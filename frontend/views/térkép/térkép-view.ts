@@ -36,8 +36,11 @@ export class TérképView extends View {
 	@query('#descriptionfield')
 	private descriptionfield: any;
 
-	@query('#sendnotificationfield')
-	private sendnotificationfield: any;
+	@query('#sendemailnotificationfield')
+	private sendemailnotificationfield: any;
+
+	@query('#sendpushnotificationfield')
+	private sendpushnotificationfield: any;
 
 	@query('#bottomlatitudefield')
 	private bottomlatitudefield: any;
@@ -89,6 +92,9 @@ export class TérképView extends View {
 	sendEmailNotification: boolean = false;
 
 	@property()
+	sendPushNotification: boolean = false;
+
+	@property()
 	bottomLongitude: number = 0;
 	@property()
 	bottomLatitude: number = 0;
@@ -122,10 +128,14 @@ export class TérképView extends View {
 						<vaadin-form-item>
 							<vaadin-text-field @change=${this.change} id="descriptionfield" label="Description1"
 								value=${this.description} class="myclass"></vaadin-text-field>
-							<vaadin-checkbox id="sendnotificationfield" @change=${this.change}>Send notification</vaadin-checkbox>
 						</vaadin-form-item>
 						<br>
-						
+						<vaadin-form-item>
+							<vaadin-checkbox id="sendemailnotificationfield" @change=${this.change}>Send Email</vaadin-checkbox>
+							<vaadin-checkbox id="sendpushnotificationfield" @change=${this.change}>Send Push</vaadin-checkbox>
+						</vaadin-form-item>
+						<br>
+			
 						<vaadin-form-item>
 							<vaadin-number-field class="latlng" id="bottomlatitudefield" label="Bottom Latitude" step="0.01"
 								@change=${this.change} value=${this.bottomLatitude} min="0" max="90" has-controls>
@@ -135,7 +145,7 @@ export class TérképView extends View {
 							</vaadin-number-field>
 						</vaadin-form-item>
 						<br>
-						
+			
 						<vaadin-form-item>
 							<vaadin-number-field class="latlng" id="toplatitudefield" label="Top Latitude" step="0.01"
 								@change=${this.change} value=${this.topLatitude} min=" 0" max="90" has-controls>
@@ -145,7 +155,7 @@ export class TérképView extends View {
 							</vaadin-number-field>
 						</vaadin-form-item>
 						<br>
-						
+			
 						<vaadin-form-item>
 							<vaadin-number-field class="latlng" id="minaltitudefield" @change=${this.change} label="Min Altitude"
 								step="100" value=${this.minAltitude} min="0" max="15000" has-controls></vaadin-number-field>
@@ -162,7 +172,7 @@ export class TérképView extends View {
 							</vaadin-number-field>
 						</vaadin-form-item>
 						<br>
-						
+			
 						<vaadin-form-item>
 							<vaadin-number-field id="minspeedfield" @change=${this.change} label="Min Speed" step="30"
 								value=${this.minSpeed} min="0" max="1500" has-controls>
@@ -172,7 +182,7 @@ export class TérképView extends View {
 							</vaadin-number-field>
 						</vaadin-form-item>
 						<br>
-						
+			
 						<vaadin-form-item>
 							<vaadin-button id="savebutton" @click="${this.save}">Save</vaadin-button>
 							<vaadin-button @click="${this.cancel}">Cancel</vaadin-button>
@@ -251,7 +261,7 @@ export class TérképView extends View {
 		});
 		this.rectangles = [];
 		delete this.actualRectangle;
-		UserAreaEndPoint.getUserArea(appStore.email).then((result) => {
+		UserAreaEndPoint.getUserArea(appStore.deviceId, appStore.email).then((result) => {
 			if (result) {
 				this.userArea = result;
 				if (result.areas) {
@@ -269,11 +279,11 @@ export class TérképView extends View {
 						var rect;
 						if (observedArea.sendEmailNotification) {
 							rect = L.rectangle(bounds1, { color: "#ff0000", weight: 1 });
-							this.sendnotificationfield.checked = true;
+							this.sendemailnotificationfield.checked = true;
 						}
 						else {
 							rect = L.rectangle(bounds1, { color: "#0000ff", weight: 1 });
-							this.sendnotificationfield.checked = false;
+							this.sendemailnotificationfield.checked = false;
 						}
 						rect.addTo(this.map).on('click', (e: L.LeafletMouseEvent) => {
 							this.myRectangleClick(e);
@@ -332,6 +342,7 @@ export class TérképView extends View {
 			};
 			var observedArea: ObservedArea = {
 				sendEmailNotification: this.sendEmailNotification,
+				sendPushNotification: this.sendPushNotification,
 				description: this.description.toString(),
 				area: area,
 				minAltitude: this.minAltitude,
@@ -439,21 +450,12 @@ export class TérképView extends View {
 			this.minVertical = this.minverticalfield.value;
 		if (e.target == this.maxverticalfield)
 			this.maxVertical = this.maxverticalfield.value;
-		if (e.target == this.sendnotificationfield) {
-			this.sendEmailNotification = this.sendnotificationfield.checked;
-			/*			if (this.actualRectangle){
-							console.log('change lesz');
-							console.log(this.sendEmailNotification);
-							console.log(this.actualRectangle.options);
-							if (this.sendEmailNotification)
-								this.actualRectangle.options = { color: "#ff0000", weight: 1 };
-							else			
-								this.actualRectangle.options = { color: "#0000ff", weight: 1 };
-							console.log(this.actualRectangle.options);	
-							this.actualRectangle.redraw();
-						}*/
-		}
+		if (e.target == this.sendemailnotificationfield)
+			this.sendEmailNotification = this.sendemailnotificationfield.checked;
+		if (e.target == this.sendpushnotificationfield)
+			this.sendPushNotification = this.sendpushnotificationfield.checked;
 	}
+
 
 	myRectangleClick(e: L.LeafletMouseEvent) {
 		this.formlayout.hidden = false;
@@ -461,7 +463,7 @@ export class TérképView extends View {
 		for (let rectangle of this.rectangles) {
 			if (rectangle == e.target) {
 				this.sendEmailNotification = this.userArea.areas[i].sendEmailNotification;
-				this.sendnotificationfield.checked = this.userArea.areas[i].sendEmailNotification;
+				this.sendemailnotificationfield.checked = this.userArea.areas[i].sendEmailNotification;
 				this.description = this.userArea.areas[i].description;
 				this.bottomLatitude = this.userArea.areas[i].area.bottomLatitude;
 				this.bottomLongitude = this.userArea.areas[i].area.bottomLongitude;

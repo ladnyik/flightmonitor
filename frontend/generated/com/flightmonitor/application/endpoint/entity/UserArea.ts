@@ -9,6 +9,7 @@ import ObjectId from '../../../../../org/bson/types/ObjectId';
 
 export default interface UserArea {
   areas?: Array<ObservedArea>;
-  email: string;
+  deviceId: string;
+  email?: string;
   id: ObjectId;
 }
