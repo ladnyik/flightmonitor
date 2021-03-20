@@ -1,0 +1,451 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Vaadin Connect Application",
+    "version" : "0.0.1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080/connect",
+    "description" : "Vaadin Connect backend"
+  } ],
+  "tags" : [ {
+    "name" : "FmUtilities",
+    "description" : "",
+    "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/FmUtilities.java"
+  }, {
+    "name" : "UserLoginEndPoint",
+    "description" : "",
+    "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/UserLoginEndPoint.java"
+  }, {
+    "name" : "UserAreaEndPoint",
+    "description" : "",
+    "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/UserAreaEndPoint.java"
+  }, {
+    "name" : "AppStoreUtil",
+    "description" : "",
+    "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/parms/AppStoreUtil.java"
+  }, {
+    "name" : "NotificationEndPoint",
+    "description" : "",
+    "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/NotificationEndPoint.java"
+  } ],
+  "paths" : {
+    "/UserAreaEndPoint/getUserArea" : {
+      "post" : {
+        "tags" : [ "UserAreaEndPoint" ],
+        "operationId" : "UserAreaEndPoint_getUserArea_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "email" ],
+                "type" : "object",
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.UserArea"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/UserAreaEndPoint/setUserArea" : {
+      "post" : {
+        "tags" : [ "UserAreaEndPoint" ],
+        "operationId" : "UserAreaEndPoint_setUserArea_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "userAreas" ],
+                "type" : "object",
+                "properties" : {
+                  "userAreas" : {
+                    "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.UserArea"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/UserLoginEndPoint/userLogin" : {
+      "post" : {
+        "tags" : [ "UserLoginEndPoint" ],
+        "operationId" : "UserLoginEndPoint_userLogin_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "userInfo" ],
+                "type" : "object",
+                "properties" : {
+                  "userInfo" : {
+                    "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.UserInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean",
+                  "description" : ""
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/UserLoginEndPoint/userLogout" : {
+      "post" : {
+        "tags" : [ "UserLoginEndPoint" ],
+        "operationId" : "UserLoginEndPoint_userLogout_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "email" ],
+                "type" : "object",
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/FmUtilities/getMongoPort" : {
+      "post" : {
+        "tags" : [ "FmUtilities" ],
+        "operationId" : "FmUtilities_getMongoPort_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "description" : ""
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/NotificationEndPoint/getNotifications" : {
+      "post" : {
+        "tags" : [ "NotificationEndPoint" ],
+        "operationId" : "NotificationEndPoint_getNotifications_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "email" ],
+                "type" : "object",
+                "properties" : {
+                  "email" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.Notification"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/NotificationEndPoint/setNotifications" : {
+      "post" : {
+        "tags" : [ "NotificationEndPoint" ],
+        "operationId" : "NotificationEndPoint_setNotifications_POST",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "notification" ],
+                "type" : "object",
+                "properties" : {
+                  "notification" : {
+                    "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.Notification"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    },
+    "/AppStoreUtil/getMongoPort" : {
+      "post" : {
+        "tags" : [ "AppStoreUtil" ],
+        "operationId" : "AppStoreUtil_getMongoPort_POST",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "description" : ""
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "vaadin-connect-oauth2" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "com.flightmonitor.application.endpoint.entity.Area" : {
+        "required" : [ "bottomLatitude", "bottomLongitude", "topLatitude", "topLongitude" ],
+        "type" : "object",
+        "properties" : {
+          "bottomLatitude" : {
+            "type" : "number"
+          },
+          "bottomLongitude" : {
+            "type" : "number"
+          },
+          "topLatitude" : {
+            "type" : "number"
+          },
+          "topLongitude" : {
+            "type" : "number"
+          }
+        },
+        "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/entity/Area.java"
+      },
+      "com.flightmonitor.application.endpoint.entity.Notification" : {
+        "required" : [ "email", "id", "sendF24Messages", "sendOpenSkyMessages", "sendOsF24Messages" ],
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "id" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/org.bson.types.ObjectId"
+            } ]
+          },
+          "sendF24Messages" : {
+            "type" : "boolean"
+          },
+          "sendOpenSkyMessages" : {
+            "type" : "boolean"
+          },
+          "sendOsF24Messages" : {
+            "type" : "boolean"
+          }
+        },
+        "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/entity/Notification.java"
+      },
+      "org.bson.types.ObjectId" : {
+        "required" : [ "counter", "machineIdentifier", "processIdentifier", "timestamp" ],
+        "type" : "object",
+        "properties" : {
+          "counter" : {
+            "type" : "number"
+          },
+          "machineIdentifier" : {
+            "type" : "number"
+          },
+          "processIdentifier" : {
+            "type" : "number"
+          },
+          "timestamp" : {
+            "type" : "number"
+          }
+        }
+      },
+      "com.flightmonitor.application.endpoint.entity.ObservedArea" : {
+        "required" : [ "area", "description", "maxAltitude", "maxSpeed", "maxTrack", "maxVertical", "minAltitude", "minSpeed", "minTrack", "minVertical", "sendEmailNotification" ],
+        "type" : "object",
+        "properties" : {
+          "area" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.Area"
+            } ]
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "maxAltitude" : {
+            "type" : "number"
+          },
+          "maxSpeed" : {
+            "type" : "number"
+          },
+          "maxTrack" : {
+            "type" : "number"
+          },
+          "maxVertical" : {
+            "type" : "number"
+          },
+          "minAltitude" : {
+            "type" : "number"
+          },
+          "minSpeed" : {
+            "type" : "number"
+          },
+          "minTrack" : {
+            "type" : "number"
+          },
+          "minVertical" : {
+            "type" : "number"
+          },
+          "sendEmailNotification" : {
+            "type" : "boolean"
+          }
+        },
+        "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/entity/ObservedArea.java"
+      },
+      "com.flightmonitor.application.endpoint.entity.UserArea" : {
+        "required" : [ "email", "id" ],
+        "type" : "object",
+        "properties" : {
+          "areas" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/com.flightmonitor.application.endpoint.entity.ObservedArea"
+            }
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "id" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/org.bson.types.ObjectId"
+            } ]
+          }
+        },
+        "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/entity/UserArea.java"
+      },
+      "com.flightmonitor.application.endpoint.entity.UserInfo" : {
+        "required" : [ "accessToken", "displayName", "email", "emailVerified", "enabled", "id", "logIn", "logOut", "photoURL" ],
+        "type" : "object",
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "displayName" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "emailVerified" : {
+            "type" : "boolean"
+          },
+          "enabled" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/org.bson.types.ObjectId"
+            } ]
+          },
+          "logIn" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "logOut" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "photoURL" : {
+            "type" : "string"
+          }
+        },
+        "x-vaadin-file-path" : "/home/ladnyik/vaadin/flight-monitor/src/main/java/com/flightmonitor/application/endpoint/entity/UserInfo.java"
+      }
+    },
+    "securitySchemes" : {
+      "vaadin-connect-oauth2" : {
+        "type" : "oauth2",
+        "flows" : {
+          "password" : {
+            "tokenUrl" : "/oauth/token",
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+térkép-view {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+térkép-view #map {
+	height: 95%;
+	width: 60%;
+	float: left;
+	z-index: 0;
+}
+
+vaadin-text-field {
+	width: 45%;
+}
+
+vaadin-number-field {
+	width: 45%;
+}
+
+@media screen and (max-width: 800px) {
+	térkép-view #map {
+		height: 60%;
+		width: 100%;
+		float: left;
+		z-index: 0;
+	}
+	térkép-view .form {
+		width:100%;
+		float: left;
+	}
+}
+
+#wrapper {
+	height: 100%;
+	overflow: auto;
+}
+
+.form {
+	width: 140%;
+}

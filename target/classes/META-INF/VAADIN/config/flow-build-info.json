@@ -1,0 +1,14 @@
+{
+  "productionMode": false,
+  "useDeprecatedV14Bootstrapping": false,
+  "eagerServerLoad": false,
+  "npmFolder": "/home/ladnyik/vaadin/flight-monitor",
+  "generatedFolder": "/home/ladnyik/vaadin/flight-monitor/target/frontend",
+  "frontendFolder": "/home/ladnyik/vaadin/flight-monitor/frontend",
+  "connect.javaSourceFolder": "/home/ladnyik/vaadin/flight-monitor/src/main/java",
+  "connect.applicationProperties": "/home/ladnyik/vaadin/flight-monitor/src/main/resources/application.properties",
+  "connect.openApiFile": "/home/ladnyik/vaadin/flight-monitor/target/generated-resources/openapi.json",
+  "connect.generated": "/home/ladnyik/vaadin/flight-monitor/frontend/generated",
+  "pnpm.enable": true,
+  "require.home.node": false
+}

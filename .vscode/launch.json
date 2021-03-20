@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-FlightMonitorStarter<flightmonitor>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.flightmonitor.application.FlightMonitorStarter",
+      "projectName": "flightmonitor",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AircraftFileReader<flightmonitor>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.flightmonitor.application.test.AircraftFileReader",
+      "projectName": "flightmonitor",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-SendMailTest<flightmonitor>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "com.flightmonitor.application.test.SendMailTest",
+      "projectName": "flightmonitor",
+      "args": ""
+    }
+  ]
+}
